@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -120,3 +121,30 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+INSTALLED_APPS += [
+    "rest_framework",
+    "corsheaders",
+    "django_extensions",
+] + ["xauth"]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+}
+# 允许跨域带 Cookie（后面 CORS 部分会用到）
+SESSION_COOKIE_HTTPONLY = True  # 防 XSS
+SESSION_COOKIE_SAMESITE = "Lax"  # 或 'None' 如果是跨站且 HTTPS
+CSRF_COOKIE_SAMESITE = "Lax"
+
+# 如果前端运行在 127.0.0.1:3000 等不同源
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+CORS_ALLOW_CREDENTIALS = True  # 关键：允许前端带 Cookie
