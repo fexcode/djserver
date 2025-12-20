@@ -2,10 +2,19 @@ from django.contrib.auth import authenticate, login, get_user_model
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from consts.statuscodes import Codes, response, HS, success
+from drf_spectacular.utils import extend_schema, OpenApiResponse
 
 User = get_user_model()
 
 
+@extend_schema(
+    summary="用户登录",
+    description="账号密码登录，成功返回 JSON 并写 session",
+    responses={
+        200: OpenApiResponse(description="登录成功"),
+        400: OpenApiResponse(description="用户名或密码错误"),
+    },
+)
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def session_login(request):
@@ -22,6 +31,14 @@ def session_login(request):
     )
 
 
+@extend_schema(
+    summary="用户注册",
+    description="用户名密码注册，成功返回 JSON 并写 session",
+    responses={
+        200: OpenApiResponse(description="注册成功"),
+        400: OpenApiResponse(description="用户名已存在"),
+    },
+)
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def signup(request):

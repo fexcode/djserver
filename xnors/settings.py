@@ -127,7 +127,9 @@ INSTALLED_APPS += [
     "rest_framework",
     "corsheaders",
     "django_extensions",
+    "drf_spectacular",
 ] + ["xauth", "analytics"]
+
 MIDDLEWARE += ["analytics.middleware.AccessLogMiddleware"]
 
 REST_FRAMEWORK = {
@@ -137,6 +139,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 # 允许跨域带 Cookie（后面 CORS 部分会用到）
 SESSION_COOKIE_HTTPONLY = True  # 防 XSS
@@ -150,3 +153,10 @@ CORS_ALLOWED_ORIGINS = [
 ]
 CORS_ALLOW_CREDENTIALS = True  # 关键：允许前端带 Cookie
 AUTH_USER_MODEL = "xauth.User"
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Xnors API",
+    "DESCRIPTION": "网站访问日志、用户注册登录等接口",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,  # 关闭内置 schema.json 下载
+}
