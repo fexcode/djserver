@@ -127,7 +127,8 @@ INSTALLED_APPS += [
     "rest_framework",
     "corsheaders",
     "django_extensions",
-] + ["xauth"]
+] + ["xauth", "analytics"]
+MIDDLEWARE += ["analytics.middleware.AccessLogMiddleware"]
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -148,3 +149,4 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
 ]
 CORS_ALLOW_CREDENTIALS = True  # 关键：允许前端带 Cookie
+AUTH_USER_MODEL = "xauth.User"
