@@ -122,6 +122,8 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+STATIC_URL = '/static/'
+STATIC_ROOT = '/home/xnors/static'
 
 INSTALLED_APPS += [
     "rest_framework",
@@ -150,6 +152,14 @@ CSRF_COOKIE_SAMESITE = "Lax"
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "http://127.0.0.1:5173",
+    "http://localhost:5173",
+    "https://localhost:5173",
+    "http://xnors.github.io",
+    "https://xnors.github.io",
+    'xnors.pythonanywhere.com',
+    "http://xnors.pythonanywhere.com",
+    "https://xnors.pythonanywhere.com",
 ]
 CORS_ALLOW_CREDENTIALS = True  # 关键：允许前端带 Cookie
 AUTH_USER_MODEL = "xauth.User"
@@ -160,3 +170,4 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,  # 关闭内置 schema.json 下载
 }
+ALLOWED_HOSTS = ['xnors.pythonanywhere.com','xnors.github.io']
