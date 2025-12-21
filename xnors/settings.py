@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from xsecret import xSECRET_KEY
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-y1!(00n25v!4-=lma--e9$#di2*q%$tn#1s7&w*6&r-*s(e4u("
+SECRET_KEY = xSECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -122,8 +123,8 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-STATIC_URL = '/static/'
-STATIC_ROOT = '/home/xnors/static'
+STATIC_URL = "/static/"
+STATIC_ROOT = "/home/xnors/static"
 
 INSTALLED_APPS += [
     "rest_framework",
@@ -157,7 +158,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://localhost:5173",
     "http://xnors.github.io",
     "https://xnors.github.io",
-    'xnors.pythonanywhere.com',
+    "xnors.pythonanywhere.com",
     "http://xnors.pythonanywhere.com",
     "https://xnors.pythonanywhere.com",
 ]
@@ -170,4 +171,4 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,  # 关闭内置 schema.json 下载
 }
-ALLOWED_HOSTS = ['xnors.pythonanywhere.com','xnors.github.io']
+ALLOWED_HOSTS = ["xnors.pythonanywhere.com", "xnors.github.io"]
