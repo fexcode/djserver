@@ -133,7 +133,7 @@ INSTALLED_APPS += [
     "corsheaders",
     "django_extensions",
     "drf_spectacular",
-] + ["xauth", "analytics"]
+] + ["xauth", "analytics", "xblogs"]
 
 MIDDLEWARE += ["analytics.middleware.AccessLogMiddleware"]
 
@@ -154,12 +154,12 @@ REST_FRAMEWORK = {
 # CSRF_COOKIE_SECURE      = not DEBUG
 
 SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SAMESITE = 'Lax'   # 或者 'Strict' 也行，只要同站
-SESSION_COOKIE_SECURE   = False
-CSRF_COOKIE_SAMESITE    = 'Lax'
-CSRF_COOKIE_SECURE      = False
-SESSION_COOKIE_DOMAIN = 'localhost'
-CSRF_COOKIE_DOMAIN   = 'localhost'
+SESSION_COOKIE_SAMESITE = "Lax"  # 或者 'Strict' 也行，只要同站
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_DOMAIN = "localhost"
+CSRF_COOKIE_DOMAIN = "localhost"
 
 # 如果前端运行在 127.0.0.1:3000 等不同源
 CORS_ALLOWED_ORIGINS = [
@@ -171,7 +171,6 @@ CORS_ALLOWED_ORIGINS = [
     "https://localhost:8000",
     "http://xnors.github.io",
     "https://xnors.github.io",
-    # "xnors.pythonanywhere.com",
     "http://xnors.pythonanywhere.com",
     "https://xnors.pythonanywhere.com",
 ]
@@ -184,8 +183,9 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,  # 关闭内置 schema.json 下载
 }
-ALLOWED_HOSTS = [
+ALLOWED_HOSTS = [  # 允许跨域访问的域名
     "xnors.pythonanywhere.com",
     "xnors.github.io",
     "localhost",
+    "127.0.0.1",
 ]

@@ -26,6 +26,7 @@ from drf_spectacular.views import (
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("auth/", include("xauth.urls")),
+    path("xblogs/", include("xblogs.urls")),
 ]
 
 urlpatterns += [
