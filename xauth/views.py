@@ -59,3 +59,11 @@ def whoami(request):
     if user.is_authenticated:
         return success(data={"username": user.username})
     return response(status=Codes.UserNotExists, httpstatus=HS.BAD_REQUEST)
+
+
+@api_view(["GET"])
+def islogined(request):
+    user = request.user
+    if user.is_authenticated:
+        return success(data={"islogined": True})
+    return response(status=Codes.OK, data={"islogined": False})

@@ -24,7 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = xSECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+import os
+
+DEBUG = bool(os.environ.get("DJ_DEBUG", ""))
 
 ALLOWED_HOSTS = []
 
@@ -144,10 +146,20 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
-# 允许跨域带 Cookie（后面 CORS 部分会用到）
-SESSION_COOKIE_HTTPONLY = True  # 防 XSS
-SESSION_COOKIE_SAMESITE = "Lax"  # 或 'None' 如果是跨站且 HTTPS
-CSRF_COOKIE_SAMESITE = "Lax"
+
+# SESSION_COOKIE_HTTPONLY = True      # 始终 True
+# SESSION_COOKIE_SECURE   = not DEBUG # 本地 False，生产 True
+# SESSION_COOKIE_SAMESITE = 'Lax'
+# CSRF_COOKIE_SAMESITE    = 'Lax'
+# CSRF_COOKIE_SECURE      = not DEBUG
+
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'   # 或者 'Strict' 也行，只要同站
+SESSION_COOKIE_SECURE   = False
+CSRF_COOKIE_SAMESITE    = 'Lax'
+CSRF_COOKIE_SECURE      = False
+SESSION_COOKIE_DOMAIN = 'localhost'
+CSRF_COOKIE_DOMAIN   = 'localhost'
 
 # 如果前端运行在 127.0.0.1:3000 等不同源
 CORS_ALLOWED_ORIGINS = [
@@ -156,9 +168,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
     "http://localhost:5173",
     "https://localhost:5173",
+    "https://localhost:8000",
     "http://xnors.github.io",
     "https://xnors.github.io",
-    "xnors.pythonanywhere.com",
+    # "xnors.pythonanywhere.com",
     "http://xnors.pythonanywhere.com",
     "https://xnors.pythonanywhere.com",
 ]
@@ -171,4 +184,8 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,  # 关闭内置 schema.json 下载
 }
-ALLOWED_HOSTS = ["xnors.pythonanywhere.com", "xnors.github.io"]
+ALLOWED_HOSTS = [
+    "xnors.pythonanywhere.com",
+    "xnors.github.io",
+    "localhost",
+]
