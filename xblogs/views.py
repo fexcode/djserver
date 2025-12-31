@@ -80,16 +80,19 @@ def getall_read_count_sum(request: HttpRequest):
 @permission_classes([AllowAny])
 @authentication_classes([])
 def get_read_count(request: HttpRequest):
-    blog_id = request.POST.get("blog_id")
+    blog_id = json.loads(request.body).get("blog_id")
+    print(blog_id)
     if not blog_id:
         return JsonResponse({"count": 0})
 
     try:
         blog_id = int(blog_id)
     except ValueError:
-        return JsonResponse({"count": 0}, status=400)
+        print("blog_id 格式错误")
+        return JsonResponse({"count": 0, "error": "blog_id 格式错误"}, status=400)
 
     login_only = request.POST.get("login_user_only", "").lower() == "true"
+
     qs = ReadRecord.objects.filter(blog_id=blog_id)
     if login_only:
         qs = qs.filter(uid__gt=0)
@@ -125,7 +128,7 @@ def add_count(request: HttpRequest):
     # 获取json数据
     postdata = json.loads(request.body)
 
-    blog_id = postdata.get("blogid")
+    blog_id = postdata.get("blog_id")
     print(dict(postdata))
     print(blog_id)
     if blog_id is None:
